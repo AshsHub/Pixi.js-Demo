@@ -75,9 +75,7 @@ let style = new TextStyle({ //Used to create the style of font shown in the game
 });
 
 loader //Loads all the needed images from the image folder
-    .add("Images/Menu.json")
-    .add("Images/Hooks.json")
-    .add("Images/FishSheet.json")
+    .add("Images/Sprites.json")
     .add("backgroundMenuImage", "Images/Background.jpg")
     .add("backgroundGameImage", "Images/UnderwaterBG.png")
     .on("progress", loadProgressHandler) //Gives loading progress
@@ -157,7 +155,7 @@ function menuInit() {
  */
 function gameInit() {
 
-    let hookTex = TextureCache["HookTwo.png"]
+    let hookTex = TextureCache["Hook.png"]
     hook = new Sprite(hookTex);
     hook.anchor.set(0.5, 1);
     hook.scale.set(0.5, 0.5);
