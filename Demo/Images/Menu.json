@@ -1,0 +1,60 @@
+{"frames": {
+
+"GameOver.png":
+{
+	"frame": {"x":0,"y":0,"w":267,"h":144},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":267,"h":144},
+	"sourceSize": {"w":267,"h":144}
+},
+"Paused.png":
+{
+	"frame": {"x":0,"y":144,"w":270,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":270,"h":50},
+	"sourceSize": {"w":270,"h":50}
+},
+"PlayAgain.png":
+{
+	"frame": {"x":0,"y":194,"w":264,"h":137},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":264,"h":137},
+	"sourceSize": {"w":264,"h":137}
+},
+"Restart.png":
+{
+	"frame": {"x":0,"y":331,"w":315,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":315,"h":52},
+	"sourceSize": {"w":315,"h":52}
+},
+"Select.png":
+{
+	"frame": {"x":0,"y":383,"w":292,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":292,"h":48},
+	"sourceSize": {"w":292,"h":48}
+},
+"Start.png":
+{
+	"frame": {"x":0,"y":431,"w":268,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":268,"h":51},
+	"sourceSize": {"w":268,"h":51}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Menu.png",
+	"format": "RGBA8888",
+	"size": {"w":315,"h":482},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:88e5e89daaea3d895b988d1a83eb7a01:978dede8f22548f50493b483d3697029:63d38cbd30a4b31efa9448d09901647b$"
+}
+}
