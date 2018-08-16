@@ -11,7 +11,7 @@ class UI {
         gameItems.push(points);
         app.stage.addChild(points);
 
-        timerText = new Text(60, style);
+        timerText = new Text(30, style);
         timerText.position.set(WIDTH / 2, HEIGHT - 50);
         timerText.anchor.set(0.5, 0.5);
         gameItems.push(timerText);

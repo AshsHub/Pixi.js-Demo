@@ -33,7 +33,7 @@ var app = new PIXI.Application(WIDTH, HEIGHT, {
 document.getElementById('Canvas').appendChild(app.view);
 
 let startButton, quitButton, pauseButton, restartButton, state, message, help, backgroundGameImage, isLoading, hook, isMouseMove, timer, inter,
-    biggestPoints, timerText, biggestCatch, points, pointsNum = 0,
+    biggestPoints, endPoints, timerText, biggestCatch, points, pointsNum = 0,
     gameTimer = 30,
     biggestCatchNum = 0,
     isPulling = false,
@@ -46,7 +46,8 @@ let startButton, quitButton, pauseButton, restartButton, state, message, help, b
     gameItems = [],
     fishObjects = [],
     fishTex = [],
-    lastSpawn = 0;
+    lastSpawn = 0,
+    randomFishTimer;
 
 const fishObj = new Fish();
 const uiRef = new UI();
@@ -64,7 +65,7 @@ let mouseTemp = {
 
 let style = new TextStyle({ //Used to create the style of font shown in the game
     fontFamily: "Impact",
-    fontSize: 30,
+    fontSize: 25,
     fill: "white",
     stroke: '#0000FF',
     strokeThickness: 3,
@@ -101,6 +102,11 @@ function setup() {
     backgroundGameImage.position.y = HEIGHT;
     app.stage.addChild(backgroundGameImage);
 
+
+    if (localStorage.getItem("highScorePoints") == null){
+        localStorage.setItem("highScorePoints", 0);
+    }
+
     state = menu;
     menuInit();
 
@@ -132,6 +138,11 @@ function menuInit() {
     biggestPoints.position.set(5, HEIGHT / 1.7);
     app.stage.addChild(biggestPoints);
 
+    endPoints = new Text("", style);
+    endPoints.position.set(WIDTH / 5, HEIGHT / 1.8);
+    endPoints.anchor.set(0.5, 0.5);
+    endPoints.text = "Your highscore is " + localStorage.getItem("highScorePoints");
+    app.stage.addChild(endPoints);
 
     let startTex = TextureCache["Start.png"];
     startButton = new Sprite(startTex);
@@ -155,6 +166,8 @@ function menuInit() {
  * Creates hook and preloads fish
  */
 function gameInit() {
+    randomFishTimer = Math.floor(Math.random() * (2000 + 1000) + 2000);
+    endPoints.visible = false;
     lastSpawn = Date.now();
     let hookTex = TextureCache["Hook.png"]
     hook = new Sprite(hookTex);
@@ -187,21 +200,34 @@ function gameOverInit() {
             timerText.text = gameTimer--;
 
             if (gameTimer <= 0) {
+                canFish = false;
                 clearInterval(gameOverTimer);
 
                 for (let i = 0; i < gameItems.length; i++) {
                     gameItems[i].visible = false;
                 }
 
+                biggestPoints.visible = false;
+
                 let endMessage = new Text("", style);
-                endMessage.position.set(WIDTH / 2, 20);
+                endMessage.position.set(WIDTH / 2, HEIGHT / 2);
                 endMessage.anchor.set(0.5, 0.5);
                 app.stage.addChild(endMessage);
 
                 if (biggestCatchNum > localStorage.getItem("highScore")) {
-                    endMessage.text = "CONGRATS! You beat your previous highscore with " + biggestCatchNum;
+                    endMessage.text = "CONGRATS! You beat your previous biggest catch with " + biggestCatchNum;
                 } else {
-                    endMessage.text = "You didn't beat your highest score, try again!"
+                    endMessage.text = "Your biggest catch today was " + biggestCatchNum + "\n so you didn't beat your biggest catch of " + localStorage.getItem("highScore") + ", try again!"
+                }
+
+                endPoints.visible = true;
+                endPoints.position.set(WIDTH / 2, HEIGHT / 1.5);
+
+                if (pointsNum > localStorage.getItem("highScorePoints")) {
+                    localStorage.setItem("highScorePoints", pointsNum);
+                    endPoints.text = "CONGRATS! You beat your previous highscore with " + pointsNum;
+                } else {
+                    endPoints.text = "You have gained " + pointsNum + " points \n So you didn't beat your highest score of " + localStorage.getItem("highScorePoints") + ", try again!"
                 }
 
                 restartButton.visible = true;
@@ -220,7 +246,8 @@ function gameLoop(delta) {
  */
 function play() {
 
-    if(Date.now() - lastSpawn > 1000) {
+    if (Date.now() - lastSpawn > randomFishTimer) {
+        randomFishTimer = Math.floor(Math.random() * 500) + 700;
         lastSpawn = Date.now();
         fishObj.spawnFish();
     }
@@ -252,7 +279,7 @@ function play() {
                             fishObjects[i].vy = 0;
 
                             if (pointsNum >= 20) pointsNum -= 20;
-             
+
                             fishObjects[i].vx = 6;
 
                             isPulling = false;
